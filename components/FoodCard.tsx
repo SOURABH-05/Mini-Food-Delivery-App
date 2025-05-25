@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 interface FoodItem {
@@ -5,6 +6,7 @@ interface FoodItem {
   name: string;
   image: string;
   price: number;
+  quantity: number;
 }
 
 export default function FoodCard({
@@ -16,15 +18,17 @@ export default function FoodCard({
 }) {
   return (
     <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow-md p-4 transition-all duration-300 hover:scale-105 hover:shadow-xl">
-      <div className="overflow-hidden rounded-xl relative w-full h-60">
+      <div className="relative w-full h-60 overflow-hidden rounded-xl">
         <Image
           src={item.image}
           alt={item.name}
           fill
-          className="object-cover hover:scale-110 transition duration-300"
-          style={{ borderRadius: '0.75rem' }} // optional for rounded edges
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 hover:scale-110"
+          priority // optional: if this image is above the fold
         />
       </div>
+
       <div className="mt-4 flex flex-col gap-1">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
           {item.name}
